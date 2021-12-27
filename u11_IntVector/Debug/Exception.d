@@ -1,0 +1,1 @@
+Exception.o: ../Exception.cpp

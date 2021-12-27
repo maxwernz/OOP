@@ -1,0 +1,1 @@
+binasieren.o: ../binasieren.cpp
