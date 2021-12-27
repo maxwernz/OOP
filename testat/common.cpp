@@ -185,7 +185,7 @@ void insert_a2(int m, int p, int part_size, std::vector<int>& numbers, const std
 		Timer t_find;
 		int drin=search_sorted(m, numbers, rand_ints);
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << "drin=        " << drin;
 		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
 	}
 }
@@ -205,7 +205,7 @@ void remove_a2 (int m, int p, int part_size, std::vector<int>& numbers, const st
 		int drin=search_sorted(m, numbers, rand_ints);
 
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << "drin=        " << drin;
 		std::cout << "     Entf=  " << remv << " Such= " << t_find.humanMeasure() << std::endl;
 	}
 }
@@ -225,7 +225,7 @@ void insert_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 		Timer t_find;
 		int drin=search_sorted(m, numbers, rand_ints);
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << "drin=        " << drin;
 		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
 
 	}
@@ -245,8 +245,28 @@ void remove_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 		Timer t_find;
 		int drin = search_sorted(m, numbers, rand_ints);
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << "drin=        " << drin;
 		std::cout << "     Entf=  " << remv << " Such= " << t_find.humanMeasure() << std::endl;
+	}
+}
+
+
+void insert_a4(int m, int p, int part_size, orderedset& numbers, const std::vector<int>& rand_ints) {
+	auto rand_it_begin = rand_ints.begin();
+	while (p-- > 0) {
+		Timer t_insert;
+		for (auto it=rand_it_begin; it != rand_it_begin + part_size; ++it) {
+			numbers.insert(*it);
+		}
+		std::string ins = t_insert.humanMeasure();
+
+		rand_it_begin += part_size;
+
+		Timer t_find;
+		int drin = search_sorted(m, numbers, rand_ints);
+
+		std::cout << "drin=        " << drin;
+		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
 	}
 }
 
@@ -288,6 +308,9 @@ void orderedset::insert(const int ele) {
 	}
 	if (h == nullptr) {
 		throw std::runtime_error("orderedset::insert: pos out of bounds");
+	}
+	if (ele == h->next->val) {
+		return;
 	}
 	n->next = h->next;
 	h->next = n;
