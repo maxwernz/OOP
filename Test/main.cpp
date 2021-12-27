@@ -9,6 +9,7 @@
 #include <set>
 #include <functional>
 #include "ooptool.h"
+#include "common.h"
 
 
 #include "main.h"
@@ -27,9 +28,11 @@ void Test(Cont& a) {
 
 
 int main () {
-	vector<int> a = {1, 3, 4, 4, 5, 6, 7, 8};
-	cout << *myupper_bound(a.begin(), a.end(), 8);
-
+	orderedset a;
+	a.insert(1);
+	for (auto it=a.begin(); it != a.end(); ++it) {
+		cout << *it << endl;
+	}
 }
 
 

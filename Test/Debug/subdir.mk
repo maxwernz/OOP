@@ -4,16 +4,19 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../common.cpp \
 ../main.cpp \
 ../ooptool.cpp 
 
-OBJS += \
-./main.o \
-./ooptool.o 
-
 CPP_DEPS += \
+./common.d \
 ./main.d \
 ./ooptool.d 
+
+OBJS += \
+./common.o \
+./main.o \
+./ooptool.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,4 +27,11 @@ CPP_DEPS += \
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean--2e-
+
+clean--2e-:
+	-$(RM) ./common.d ./common.o ./main.d ./main.o ./ooptool.d ./ooptool.o
+
+.PHONY: clean--2e-
 

@@ -54,10 +54,10 @@ Iter binary_find(Iter begin, Iter end, int val) {
 
 
 
-int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+int search_a1(int m, std::vector<int>& m_numbers, const std::vector<int>& rand_ints) {
 	int drin=0;
 	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {		//Fuer alle Suchzahlen in der Menge schauen ob sie vorkommen
-		if (my_find(numbers.begin(), numbers.end(), *search_it) != numbers.end()) {
+		if (my_find(m_numbers.begin(), m_numbers.end(), *search_it) != m_numbers.end()) {
 			drin+=1;
 		}
 	}
@@ -67,14 +67,14 @@ int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_int
 
 
 template<typename Cont>
-int search_sorted(int m, Cont& numbers, const std::vector<int>& rand_ints) {
+int search_sorted(int m, Cont& m_numbers, const std::vector<int>& rand_ints) {
 	int drin=0;
 	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
-		auto it=numbers.begin();
-		while (*search_it > *it && it != numbers.end()) {
+		auto it=m_numbers.begin();
+		while (*search_it > *it && it != m_numbers.end()) {
 			++it;
 		}
-		if (it != numbers.end() && *it == *search_it) {
+		if (it != m_numbers.end() && *it == *search_it) {
 			drin+=1;
 		}
 	}
@@ -84,24 +84,24 @@ int search_sorted(int m, Cont& numbers, const std::vector<int>& rand_ints) {
 
 
 template<typename Cont,typename Iter>
-void insert_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
+void insert_sorted (Iter rand_it_begin, int part_size, Cont& m_numbers) {
 	for(auto rand_it=rand_it_begin; rand_it != rand_it_begin + part_size; ++rand_it) {
 
-		auto insit = not_less_than(numbers.begin(), numbers.end(), *rand_it);
+		auto insit = not_less_than(m_numbers.begin(), m_numbers.end(), *rand_it);
 
-		if (insit != numbers.end() && *insit != *rand_it) {
-			numbers.insert(insit, *rand_it);
+		if (insit != m_numbers.end() && *insit != *rand_it) {
+			m_numbers.insert(insit, *rand_it);
 		}
-		else if (insit == numbers.end()){
-			numbers.push_back(*rand_it);
+		else if (insit == m_numbers.end()){
+			m_numbers.push_back(*rand_it);
 		}
-//		if (numbers.size() == 0) {
-//			numbers.push_back(*rand_it);
+//		if (m_numbers.size() == 0) {
+//			m_numbers.push_back(*rand_it);
 //			continue;
 //		}
-//		auto insitr = not_greater_than(numbers.begin(), numbers.end(), *rand_it);
+//		auto insitr = not_greater_than(m_numbers.begin(), m_numbers.end(), *rand_it);
 //		if (*insitr != *rand_it) {
-//			numbers.insert(insitr, *rand_it);
+//			m_numbers.insert(insitr, *rand_it);
 //		}
 
 
@@ -111,15 +111,15 @@ void insert_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 
 
 template<typename Cont, typename Iter>
-void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
+void remove_sorted (Iter rand_it_begin, int part_size, Cont& m_numbers) {
 	for (auto rand_it=rand_it_begin; rand_it != rand_it_begin+part_size; ++rand_it) {
-		auto remvit = std::find(numbers.begin(), numbers.end(), *rand_it);
-		if (remvit != numbers.end()) {
-			numbers.erase(remvit);
+		auto remvit = std::find(m_numbers.begin(), m_numbers.end(), *rand_it);
+		if (remvit != m_numbers.end()) {
+			m_numbers.erase(remvit);
 		}
-//		for (auto remove_it=numbers.begin(); remove_it != numbers.end(); ++remove_it) {
+//		for (auto remove_it=m_numbers.begin(); remove_it != m_numbers.end(); ++remove_it) {
 //			if (*rand_it == *remove_it) {
-//				numbers.erase(remove_it);
+//				m_numbers.erase(remove_it);
 //				break;
 //			}
 //		}
@@ -128,18 +128,18 @@ void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 
 
 
-void insert_a1(int& anz, int part_size, int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+void insert_a1(int& anz, int part_size, int m, std::vector<int>& m_numbers, const std::vector<int>& rand_ints) {
 	while (anz != m) {
 
 		Timer t_insert;
 		for (int i=0; i < part_size; ++i) {
-			numbers.push_back(rand_ints[i + anz]);
+			m_numbers.push_back(rand_ints[i + anz]);
 		}
 		std::string ins = t_insert.humanMeasure();
 
 
 		Timer t_find;
-		int drin=search_a1(m, numbers, rand_ints);
+		int drin=search_a1(m, m_numbers, rand_ints);
 
 
 		anz += part_size;
@@ -151,17 +151,17 @@ void insert_a1(int& anz, int part_size, int m, std::vector<int>& numbers, const 
 
 
 
-void remove_a1(int& anz, int part_size, int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+void remove_a1(int& anz, int part_size, int m, std::vector<int>& m_numbers, const std::vector<int>& rand_ints) {
 	while (anz != 0) {
 
 		Timer t_remove;
 		for (int i=0; i < part_size; ++i) {			//Element welches als erstes eingefuegt wurde, wird als erstes entfernt
-			numbers.erase(numbers.begin());
+			m_numbers.erase(m_numbers.begin());
 		}
 		std::string remv = t_remove.humanMeasure();
 
 		Timer t_find;
-		int drin=search_a1(m, numbers, rand_ints);
+		int drin=search_a1(m, m_numbers, rand_ints);
 
 		anz -= part_size;
 
@@ -172,60 +172,60 @@ void remove_a1(int& anz, int part_size, int m, std::vector<int>& numbers, const 
 
 
 
-void insert_a2(int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+void insert_a2(int m, int p, int part_size, std::vector<int>& m_numbers, const std::vector<int>& rand_ints) {
 	auto rand_it_begin = rand_ints.begin();
 	while (p-- > 0) {
 
 		Timer t_insert;
-		insert_sorted(rand_it_begin, part_size, numbers);
+		insert_sorted(rand_it_begin, part_size, m_numbers);
 		std::string ins = t_insert.humanMeasure();
 
 		rand_it_begin += part_size;
 
 		Timer t_find;
-		int drin=search_sorted(m, numbers, rand_ints);
+		int drin=search_sorted(m, m_numbers, rand_ints);
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << m_numbers.size() << "drin=        " << drin;
 		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
 	}
 }
 
 
 
-void remove_a2 (int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+void remove_a2 (int m, int p, int part_size, std::vector<int>& m_numbers, const std::vector<int>& rand_ints) {
 	auto rand_it_begin = rand_ints.begin();
 	while (p-- > 0) {
 		Timer t_remove;
-		remove_sorted(rand_it_begin, part_size, numbers);
+		remove_sorted(rand_it_begin, part_size, m_numbers);
 		std::string remv = t_remove.humanMeasure();
 
 		rand_it_begin += part_size;
 
 		Timer t_find;
-		int drin=search_sorted(m, numbers, rand_ints);
+		int drin=search_sorted(m, m_numbers, rand_ints);
 
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << m_numbers.size() << "drin=        " << drin;
 		std::cout << "     Entf=  " << remv << " Such= " << t_find.humanMeasure() << std::endl;
 	}
 }
 
 
 
-void insert_a3(int m, int p, int part_size, std::list<int>& numbers, const std::vector<int>& rand_ints) {
+void insert_a3(int m, int p, int part_size, std::list<int>& m_numbers, const std::vector<int>& rand_ints) {
 	auto rand_it_begin = rand_ints.begin();
 	while (p-- > 0) {
 
 		Timer t_insert;
-		insert_sorted(rand_it_begin, part_size, numbers);
+		insert_sorted(rand_it_begin, part_size, m_numbers);
 		std::string ins = t_insert.humanMeasure();
 
 		rand_it_begin += part_size;
 
 		Timer t_find;
-		int drin=search_sorted(m, numbers, rand_ints);
+		int drin=search_sorted(m, m_numbers, rand_ints);
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << m_numbers.size() << "drin=        " << drin;
 		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
 
 	}
@@ -233,19 +233,19 @@ void insert_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 
 
 
-void remove_a3(int m, int p, int part_size, std::list<int>& numbers, const std::vector<int>& rand_ints) {
+void remove_a3(int m, int p, int part_size, std::list<int>& m_numbers, const std::vector<int>& rand_ints) {
 	auto rand_it_begin = rand_ints.begin();
 	while (p-- > 0) {
 		Timer t_remove;
-		remove_sorted(rand_it_begin, part_size, numbers);
+		remove_sorted(rand_it_begin, part_size, m_numbers);
 		std::string remv = t_remove.humanMeasure();
 
 		rand_it_begin += part_size;
 
 		Timer t_find;
-		int drin = search_sorted(m, numbers, rand_ints);
+		int drin = search_sorted(m, m_numbers, rand_ints);
 
-		std::cout << numbers.size() << "drin=        " << drin;
+		std::cout << m_numbers.size() << "drin=        " << drin;
 		std::cout << "     Entf=  " << remv << " Such= " << t_find.humanMeasure() << std::endl;
 	}
 }
@@ -254,15 +254,6 @@ void remove_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 orderedset::orderedset() {
 	head = new _node;
 	head->next = nullptr;
-}
-
-orderedset::~orderedset() {
-	while (head->next != nullptr) {
-		_node* todel = head->next;
-		head->next = head->next->next;
-		delete todel;
-	}
-	delete head;
 }
 
 bool orderedset::is_empty() const {
@@ -274,58 +265,32 @@ bool orderedset::is_empty() const {
 
 
 
-void orderedset::insert(const int ele) {
+void orderedset::insert(int ele) {
+//	_node* h = head;
+//	h->val = ele;
+//	while (h->next != nullptr && h->val > h->next->val) {
+//		h = h->next;
+//	}
+//
 	_node* n = new _node;
 	n->val = ele;
-	if (is_empty()) {
-		n->next = nullptr;
-		head->next = n;
-		return;
+	Iter s = begin();
+	Iter e = end();
+	while (s != e && ele > *s) {
+		++s;
 	}
-	_node* h = head->next;
-	while(h->next != nullptr && ele > h->next->val) {
-		h = h->next;
-	}
-	if (h == nullptr) {
-		throw std::runtime_error("orderedset::insert: pos out of bounds");
-	}
-	n->next = h->next;
-	h->next = n;
 
 }
 
-
-void orderedset::remove(const int ele) {
-	if (is_empty()) {
-		throw std::runtime_error("orderedset::remove: set is empty");
-	}
-	_node* h = head->next;
-	if (h->val == ele) {
-		_node* todel = h;
-		head->next = h->next;
-		delete todel;
-		return;
-	}
-	while (h != nullptr) {
-		if (h->next->val == ele) {
-			_node* todel = h->next;
-			h->next = h->next->next;
-			delete todel;
-			return;
-		}
-		h = h->next;
-	}
-}
-
-int orderedset::Iter::operator*() {
-	if (_cur == nullptr) {
+int orderedset::Iter::operator *() {
+	if (_cur->next == nullptr) {
 		throw std::runtime_error("Iter::operator*: end");
 	}
 	return _cur->val;
 }
 
 typename orderedset::Iter& orderedset::Iter::operator++() {
-	if (_cur == nullptr) {
+	if (_cur->next == nullptr) {
 		throw std::runtime_error("Iter::operator++: end");
 	}
 	_cur = _cur->next;
@@ -341,11 +306,11 @@ bool orderedset::Iter::operator!=(const orderedset::Iter& other) {
 }
 
 typename orderedset::Iter orderedset::begin() const {
-	return Iter(head->next);
+	return Iter(head);
 }
 
 typename orderedset::Iter orderedset::end() const {
-	_node* temp = head->next;
+	_node* temp = head;
 	while (temp != nullptr) {
 		temp = temp->next;
 	}

@@ -8,27 +8,44 @@
 using namespace std;
 
 void a_1 (int m, int p, const vector<int>& rand_ints) {
-	vector<int> m_numbers;
+	vector<int> numbers;
 	int anz = 0;
 	int part_size = m / p;
 
-	insert_a1 (anz, part_size, m, m_numbers, rand_ints);
-	remove_a1 (anz, part_size, m, m_numbers, rand_ints);
+	insert_a1 (anz, part_size, m, numbers, rand_ints);
+	remove_a1 (anz, part_size, m, numbers, rand_ints);
 }
 
 void a_2 (int m, int p, const vector<int>& rand_ints) {
-	vector<int> m_numbers;
+	vector<int> numbers;
 	int part_size = m / p;
-	insert_a2(m, p, part_size, m_numbers, rand_ints);
-	remove_a2(m, p, part_size, m_numbers, rand_ints);
+	insert_a2(m, p, part_size, numbers, rand_ints);
+	remove_a2(m, p, part_size, numbers, rand_ints);
 
 }
 
 void a_3 (int m, int p, const vector<int>& rand_ints) {
-	list<int> m_numbers;
+	list<int> numbers;
 	int part_size = m / p;
-	insert_a3(m, p, part_size, m_numbers, rand_ints);
-	remove_a3(m, p, part_size, m_numbers, rand_ints);
+	insert_a3(m, p, part_size, numbers, rand_ints);
+	remove_a3(m, p, part_size, numbers, rand_ints);
+}
+
+void a_4 (int m, int p, const vector<int>& rand_ints) {
+	orderedset numbers;
+}
+
+void test() {
+	orderedset a;
+	a.insert(1);
+	a.insert(3);
+	a.insert(2);
+	a.remove(2);
+	a.remove(3);
+
+	for (auto it = a.begin(); it != a.end(); ++it) {
+		cout << *it << endl;
+	}
 }
 
 int main (int argc, char* argv[]) {
