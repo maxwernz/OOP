@@ -36,34 +36,6 @@ template<typename Cont, typename Iter>
 void remove_sorted (Iter rand_it_begin, int part_size, Cont& m_numbers);
 
 
-class orderedset {
-	class Iter;
-public:
-	orderedset();
-	bool is_empty() const;
-	void insert(int ele);
-	Iter begin() const;
-	Iter end() const;
-private:
-	struct _node {
-		_node* next;
-		int val;
-	};
-
-	class Iter {
-		friend class orderedset;
-	public:
-		int operator* ();
-		Iter& operator++();
-		bool operator==(const Iter& other);
-		bool operator!=(const Iter& other);
-	private:
-		Iter(_node* cur) : _cur(cur) {}
-		_node* _cur;
-	};
-private:
-	_node* head;
-};
 
 
 

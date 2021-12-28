@@ -10,6 +10,7 @@
 #include <functional>
 #include "ooptool.h"
 #include "common.h"
+#include "orderedset.h"
 
 
 #include "main.h"
@@ -28,11 +29,12 @@ void Test(Cont& a) {
 
 
 int main () {
-	orderedset a;
-	a.insert(1);
-	for (auto it=a.begin(); it != a.end(); ++it) {
-		cout << *it << endl;
+	vector<int> a = create_same_randints(80000);
+	orderedset b;
+	for (int i = 0; i < 10000; ++i) {
+		b.insert(a[i]);
 	}
+	cout << is_sorted(b.begin(), b.end());
 }
 
 

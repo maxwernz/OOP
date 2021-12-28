@@ -6,17 +6,20 @@
 CPP_SRCS += \
 ../common.cpp \
 ../main.cpp \
-../ooptool.cpp 
+../ooptool.cpp \
+../orderedset.cpp 
 
 CPP_DEPS += \
 ./common.d \
 ./main.d \
-./ooptool.d 
+./ooptool.d \
+./orderedset.d 
 
 OBJS += \
 ./common.o \
 ./main.o \
-./ooptool.o 
+./ooptool.o \
+./orderedset.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -31,7 +34,7 @@ OBJS += \
 clean: clean--2e-
 
 clean--2e-:
-	-$(RM) ./common.d ./common.o ./main.d ./main.o ./ooptool.d ./ooptool.o
+	-$(RM) ./common.d ./common.o ./main.d ./main.o ./ooptool.d ./ooptool.o ./orderedset.d ./orderedset.o
 
 .PHONY: clean--2e-
 
