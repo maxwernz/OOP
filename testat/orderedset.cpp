@@ -16,7 +16,7 @@ orderedset::~orderedset() {
 	delete head;
 }
 
-bool orderedset::is_empty() const {
+bool orderedset::empty() const {
 	if (head->next == nullptr) {
 		return true;
 	}
@@ -26,9 +26,9 @@ bool orderedset::is_empty() const {
 
 
 void orderedset::insert(const int ele) {
-	_node* n = new _node;
-	n->val = ele;
-	if (is_empty()) {
+	if (empty()) {
+		_node* n = new _node;
+		n->val = ele;
 		n->next = nullptr;
 		head->next = n;
 		return;
@@ -40,15 +40,25 @@ void orderedset::insert(const int ele) {
 	if (h == nullptr) {
 		throw std::runtime_error("orderedset::insert: pos out of bounds");
 	}
-
-	n->next = h->next;
-	h->next = n;
+	if (h->next == nullptr) {
+		_node* n = new _node;
+		n->val = ele;
+		n->next = h->next;
+		h->next = n;
+		return;
+	}
+	if (ele != h->next->val) {
+		_node* n = new _node;
+		n->val = ele;
+		n->next = h->next;
+		h->next = n;
+	}
 
 }
 
 
 void orderedset::remove(const int ele) {
-	if (is_empty()) {
+	if (empty()) {
 		throw std::runtime_error("orderedset::remove: set is empty");
 	}
 	_node* h = head->next;
@@ -58,7 +68,7 @@ void orderedset::remove(const int ele) {
 		delete todel;
 		return;
 	}
-	while (h != nullptr) {
+	while (h->next != nullptr) {
 		if (h->next->val == ele) {
 			_node* todel = h->next;
 			h->next = h->next->next;
@@ -67,6 +77,16 @@ void orderedset::remove(const int ele) {
 		}
 		h = h->next;
 	}
+}
+
+size_t orderedset::size() const {
+	_node* h = head->next;
+	size_t size = 0;
+	while (h != nullptr) {
+		h = h->next;
+		size+=1;
+	}
+	return size;
 }
 
 int orderedset::Iter::operator*() {
@@ -97,10 +117,11 @@ typename orderedset::Iter orderedset::begin() const {
 }
 
 typename orderedset::Iter orderedset::end() const {
-	_node* temp = head->next;
-	while (temp != nullptr) {
-		temp = temp->next;
-	}
-	return Iter(temp);
+//	_node* temp = head->next;
+//	while (temp != nullptr) {
+//		temp = temp->next;
+//	}
+//	return Iter(temp);
+	return Iter(nullptr);
 }
 

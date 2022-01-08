@@ -1,4 +1,4 @@
-
+#include <stddef.h>
 
 #ifndef ORDEREDSET_H_
 #define ORDEREDSET_H_
@@ -9,9 +9,10 @@ class orderedset {
 public:
 	orderedset();
 	~orderedset();
-	bool is_empty() const;
+	bool empty() const;
 	void insert(const int ele);
 	void remove(const int ele);
+	size_t size() const;
 	Iter begin() const;
 	Iter end() const;
 private:

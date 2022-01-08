@@ -8,15 +8,15 @@ CPP_SRCS += \
 ../main.cpp \
 ../ooptool.cpp 
 
-OBJS += \
-./binasieren.o \
-./main.o \
-./ooptool.o 
-
 CPP_DEPS += \
 ./binasieren.d \
 ./main.d \
 ./ooptool.d 
+
+OBJS += \
+./binasieren.o \
+./main.o \
+./ooptool.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,4 +27,11 @@ CPP_DEPS += \
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
+clean: clean--2e-
+
+clean--2e-:
+	-$(RM) ./binasieren.d ./binasieren.o ./main.d ./main.o ./ooptool.d ./ooptool.o
+
+.PHONY: clean--2e-
 

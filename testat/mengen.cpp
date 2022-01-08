@@ -7,19 +7,16 @@
 
 using namespace std;
 
-void a_1 (int m, int part_size, const vector<int>& rand_ints) {
+void a_1 (int m, int p, int part_size, const vector<int>& rand_ints) {
 	vector<int> numbers;
-	int anz = 0;
-
-	insert_a1 (anz, part_size, m, numbers, rand_ints);
-	remove_a1 (anz, part_size, m, numbers, rand_ints);
+	insert_a1 (m, p, part_size, numbers, rand_ints);
+	remove_a1 (m, p, part_size, numbers, rand_ints);
 }
 
 void a_2 (int m, int p, int part_size, const vector<int>& rand_ints) {
 	vector<int> numbers;
 	insert_a2(m, p, part_size, numbers, rand_ints);
 	remove_a2(m, p, part_size, numbers, rand_ints);
-
 }
 
 void a_3 (int m, int p, int part_size, const vector<int>& rand_ints) {
@@ -31,16 +28,10 @@ void a_3 (int m, int p, int part_size, const vector<int>& rand_ints) {
 void a_4 (int m, int p, int part_size, const vector<int>& rand_ints) {
 	orderedset numbers;
 	insert_a4(m, p, part_size, numbers, rand_ints);
+	remove_a4(m, p, part_size, numbers, rand_ints);
 }
 
-void test() {
-	vector<int> s = { 2 };
-	orderedset a;
-	a.insert(1);
-	a.insert(3);
-	a.insert(2);
-
-
+void a_5 (int m, int p, int part_size, const vector<int>& rand_ints) {
 
 }
 
@@ -54,24 +45,23 @@ int main (int argc, char* argv[]) {
 
 	if ((m%p) == 0) {
 		vector<int> rand_ints = create_same_randints(m + s);
-		vector<int> meine { 4, 2, 5, 9, 1, 12, 38, 29, 2 , 4, 8, 1, 98, 83, 2, 57, -2 };
 
 		int part_size = m / p;
-
 
 		cout << "mengen: m=" << m << ", s=" << s << ", p=" << p << endl;
 		Timer timer;
 		switch (a) {
 		case 0: cout << "Kein a angegeben" << endl;
 			break;
-		case 1: cout << "unsorted_vec" << endl; a_1(m, part_size, rand_ints);
+		case 1: cout << "unsorted_vec" << endl; a_1(m, p, part_size, rand_ints);
 			break;
 		case 2: cout << "sorted_vec" << endl; a_2(m, p, part_size, rand_ints);
 			break;
 		case 3: cout << "sorted_list" << endl; a_3(m, p, part_size, rand_ints);
 			break;
-		case 4: cout << "ordered_list" << endl; a_4(m, p, part_size, rand_ints);
+		case 4: cout << "orderedset" << endl; a_4(m, p, part_size, rand_ints);
 			break;
+		case 5: cout << "sorderedset" << endl; a_5(m, p, part_size, rand_ints);
 		}
 		cout << "Gesamtzeit:" << timer.humanMeasure() << endl;
 	} else {

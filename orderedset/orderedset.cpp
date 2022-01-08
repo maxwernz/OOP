@@ -2,6 +2,8 @@
 #include <stdexcept>
 
 
+
+
 template<typename Iter>
 Iter not_less_than(Iter start, Iter end, int val) { //my lower_bound
 	Iter it;
@@ -50,23 +52,33 @@ bool orderedset::is_empty() const {
 
 
 void orderedset::insert(const int ele) {
-	_node* n = new _node;
-	n->val = ele;
 	if (is_empty()) {
+		_node* n = new _node;
+		n->val = ele;
 		n->next = nullptr;
 		head->next = n;
 		return;
 	}
-	_node* h = head->next;
+	_node* h = head;
 	while(h->next != nullptr && ele > h->next->val) {
 		h = h->next;
 	}
 	if (h == nullptr) {
 		throw std::runtime_error("orderedset::insert: pos out of bounds");
 	}
-
-	n->next = h->next;
-	h->next = n;
+	if (h->next == nullptr) {
+		_node* n = new _node;
+		n->val = ele;
+		n->next = h->next;
+		h->next = n;
+		return;
+	}
+	if (ele != h->next->val) {
+		_node* n = new _node;
+		n->val = ele;
+		n->next = h->next;
+		h->next = n;
+	}
 
 }
 
@@ -82,7 +94,7 @@ void orderedset::remove(const int ele) {
 		delete todel;
 		return;
 	}
-	while (h != nullptr) {
+	while (h->next != nullptr) {
 		if (h->next->val == ele) {
 			_node* todel = h->next;
 			h->next = h->next->next;
@@ -91,6 +103,16 @@ void orderedset::remove(const int ele) {
 		}
 		h = h->next;
 	}
+}
+
+size_t orderedset::size() const {
+	_node* h = head->next;
+	size_t size = 0;
+	while (h != nullptr) {
+		h = h->next;
+		size+=1;
+	}
+	return size;
 }
 
 int orderedset::Iter::operator*() {
@@ -116,27 +138,15 @@ bool orderedset::Iter::operator!=(const orderedset::Iter& other) {
 	return _cur != other._cur;
 }
 
-int orderedset::Iter::operator ->(int m) {
-	return m;
-}
-
-
-
 typename orderedset::Iter orderedset::begin() const {
 	return Iter(head->next);
 }
 
 typename orderedset::Iter orderedset::end() const {
-	_node* temp = head->next;
-	while (temp != nullptr) {
-		temp = temp->next;
-	}
-	return Iter(temp);
-}
-
-
-void fill(orderedset& a, std::vector<int>& b) {
-	for (int i : b) {
-		a.insert(i);
-	}
+//	_node* temp = head->next;
+//	while (temp != nullptr) {
+//		temp = temp->next;
+//	}
+//	return Iter(temp);
+	return Iter(nullptr);
 }

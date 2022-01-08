@@ -57,20 +57,20 @@ Iter binary_find(Iter begin, Iter end, int val) {
 
 template<typename Cont>
 int search_sorted(int m, Cont& numbers, const std::vector<int>& rand_ints) {
-	int drin=0;
-	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
-		auto it=numbers.begin();
-		while (*search_it > *it && it != numbers.end()) {
-			++it;
+ 	int drin=0;
+ 	if (!numbers.empty()) {
+		for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
+			auto it=numbers.begin();
+			while (*search_it > *it && it != numbers.end()) {
+				++it;
+			}
+			if (it != numbers.end() && *it == *search_it) {
+				drin+=1;
+			}
 		}
-		if (it != numbers.end() && *it == *search_it) {
-			drin+=1;
-		}
-	}
+ 	}
 	return drin;
 }
-
-
 
 template<typename Cont,typename Iter>
 void insert_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
@@ -84,16 +84,6 @@ void insert_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 		else if (insit == numbers.end()){
 			numbers.push_back(*rand_it);
 		}
-//		if (numbers.size() == 0) {
-//			numbers.push_back(*rand_it);
-//			continue;
-//		}
-//		auto insitr = not_greater_than(numbers.begin(), numbers.end(), *rand_it);
-//		if (*insitr != *rand_it) {
-//			numbers.insert(insitr, *rand_it);
-//		}
-
-
 	}
 }
 
@@ -106,19 +96,14 @@ void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 		if (remvit != numbers.end()) {
 			numbers.erase(remvit);
 		}
-//		for (auto remove_it=numbers.begin(); remove_it != numbers.end(); ++remove_it) {
-//			if (*rand_it == *remove_it) {
-//				numbers.erase(remove_it);
-//				break;
-//			}
-//		}
 	}
 }
 
 
+
 int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
 	int drin=0;
-	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {		//Fuer alle Suchzahlen in der Menge schauen ob sie vorkommen
+	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
 		if (my_find(numbers.begin(), numbers.end(), *search_it) != numbers.end()) {
 			drin+=1;
 		}
@@ -126,47 +111,57 @@ int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_int
 	return drin;
 }
 
-void insert_a1(int& anz, int part_size, int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
-	while (anz != m) {
+void out_ins (size_t size, int drin, std::string ins, std::string t_find) {
+	std::cout << "anz=     " << size << " drin=        " << drin;
+	std::cout << "     Einf=" << ins << " Such= " << t_find << std::endl;
+}
 
-		Timer t_insert;
-		for (int i=0; i < part_size; ++i) {
-			numbers.push_back(rand_ints[i + anz]);
-		}
-		std::string ins = t_insert.humanMeasure();
-
-
-		Timer t_find;
-		int drin=search_a1(m, numbers, rand_ints);
-
-
-		anz += part_size;
-
-		std::cout << "anz=     " << anz << " drin=        " << drin;
-		std::cout << "     Einf=" << ins << " Such= " << t_find.humanMeasure() << std::endl;
-	}
+void out_rem (size_t size, int drin, std::string remv, std::string t_find) {
+	std::cout << "anz=     " << size << " drin=        " << drin;
+	std::cout << "     Entf=" << remv << " Such= " << t_find << std::endl;
 }
 
 
 
-void remove_a1(int& anz, int part_size, int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
-	while (anz != 0) {
 
+
+void insert_a1 (int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+	auto rand_it_begin = rand_ints.begin();
+	while (p-- > 0) {
+		Timer t_insert;
+		for (auto it=rand_it_begin; it != rand_it_begin + part_size; ++it) {
+			numbers.push_back(*it);
+		}
+		std::string ins = t_insert.humanMeasure();
+
+		rand_it_begin += part_size;
+
+		Timer t_find;
+		int drin = search_a1(m, numbers, rand_ints);
+
+		out_ins(numbers.size(), drin, ins, t_find.humanMeasure());
+	}
+}
+
+void remove_a1(int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
+	auto rand_it_begin = rand_ints.begin();
+	while (p-- > 0) {
 		Timer t_remove;
-		for (int i=0; i < part_size; ++i) {			//Element welches als erstes eingefuegt wurde, wird als erstes entfernt
+		for (auto it = rand_it_begin; it != rand_it_begin + part_size; ++it) {
 			numbers.erase(numbers.begin());
 		}
 		std::string remv = t_remove.humanMeasure();
 
+		rand_it_begin += part_size;
+
 		Timer t_find;
-		int drin=search_a1(m, numbers, rand_ints);
+		int drin = search_a1(m, numbers, rand_ints);
 
-		anz -= part_size;
-
-		std::cout << "anz=     " << anz << " drin=        " << drin;
-		std::cout << "     Entf=" << remv << " Such= " << t_find.humanMeasure() << std::endl;
+		out_rem(numbers.size(), drin, remv, t_find.humanMeasure());
 	}
 }
+
+
 
 
 
@@ -183,11 +178,9 @@ void insert_a2(int m, int p, int part_size, std::vector<int>& numbers, const std
 		Timer t_find;
 		int drin=search_sorted(m, numbers, rand_ints);
 
-		std::cout << "drin=        " << drin;
-		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
+		out_ins(numbers.size(), drin, ins, t_find.humanMeasure());
 	}
 }
-
 
 
 void remove_a2 (int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
@@ -202,11 +195,11 @@ void remove_a2 (int m, int p, int part_size, std::vector<int>& numbers, const st
 		Timer t_find;
 		int drin=search_sorted(m, numbers, rand_ints);
 
-
-		std::cout << "drin=        " << drin;
-		std::cout << "     Entf=  " << remv << " Such= " << t_find.humanMeasure() << std::endl;
+		out_rem(numbers.size(), drin, remv, t_find.humanMeasure());
 	}
 }
+
+
 
 
 
@@ -223,13 +216,9 @@ void insert_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 		Timer t_find;
 		int drin=search_sorted(m, numbers, rand_ints);
 
-		std::cout << "drin=        " << drin;
-		std::cout << "     Einf=  " << ins << " Such= " << t_find.humanMeasure() << std::endl;
-
+		out_ins(numbers.size(), drin, ins, t_find.humanMeasure());
 	}
 }
-
-
 
 void remove_a3(int m, int p, int part_size, std::list<int>& numbers, const std::vector<int>& rand_ints) {
 	auto rand_it_begin = rand_ints.begin();
@@ -243,18 +232,13 @@ void remove_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 		Timer t_find;
 		int drin = search_sorted(m, numbers, rand_ints);
 
-		std::cout << "drin=        " << drin;
-		std::cout << "     Entf=  " << remv << " Such= " << t_find.humanMeasure() << std::endl;
+		out_rem(numbers.size(), drin, remv, t_find.humanMeasure());
 	}
 }
 
-int search_orderedset(int m, orderedset& numbers, const std::vector<int>& rand_ints) {
-	int drin=0;
-	for (auto search_it = rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
 
-	}
-	return drin;
-}
+
+
 
 void insert_a4(int m, int p, int part_size, orderedset& numbers, const std::vector<int>& rand_ints) {
 	auto rand_it_begin = rand_ints.begin();
@@ -264,19 +248,32 @@ void insert_a4(int m, int p, int part_size, orderedset& numbers, const std::vect
 			numbers.insert(*it);
 		}
 
-		if (std::is_sorted(numbers.begin(), numbers.end())) {
-			std::cout << "y";
-		}
-
 		std::string ins = t_insert.humanMeasure();
 
 		rand_it_begin += part_size;
 
-//		Timer t_find;
-//		//int drin = search_sorted(m, numbers, rand_ints);
-//
-//		std::cout << t_find.humanMeasure() << std::endl;
-		std::cout << ins << std::endl;
+		Timer t_find;
+		int drin = search_sorted(m, numbers, rand_ints);
+
+		out_ins(numbers.size(), drin, ins, t_find.humanMeasure());
+	}
+}
+
+void remove_a4(int m, int p, int part_size, orderedset& numbers, const std::vector<int>& rand_ints) {
+	auto rand_it_begin = rand_ints.begin();
+	while (p-- > 0) {
+		Timer t_remove;
+		for (auto it = rand_it_begin; it != rand_it_begin + part_size; ++it) {
+			numbers.remove(*it);
+		}
+		std::string remv = t_remove.humanMeasure();
+
+		rand_it_begin += part_size;
+
+		Timer t_find;
+		int drin = search_sorted(m, numbers, rand_ints);
+
+		out_rem(numbers.size(), drin, remv, t_find.humanMeasure());
 	}
 }
 
