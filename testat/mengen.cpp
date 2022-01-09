@@ -32,7 +32,9 @@ void a_4 (int m, int p, int part_size, const vector<int>& rand_ints) {
 }
 
 void a_5 (int m, int p, int part_size, const vector<int>& rand_ints) {
-
+	sorderedset numbers;
+	insert_a5(m, p, part_size, numbers, rand_ints);
+	remove_a5(m, p, part_size, numbers, rand_ints);
 }
 
 int main (int argc, char* argv[]) {

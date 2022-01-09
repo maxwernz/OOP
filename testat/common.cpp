@@ -111,6 +111,16 @@ int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_int
 	return drin;
 }
 
+int search_a5(int m, sorderedset& numbers, const std::vector<int>& rand_ints) {
+	int drin=0;
+	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
+		if (numbers.search_ele(*search_it)) {
+			drin += 1;
+		}
+	}
+	return drin;
+}
+
 void out_ins (size_t size, int drin, std::string ins, std::string t_find) {
 	std::cout << "anz=     " << size << " drin=        " << drin;
 	std::cout << "     Einf=" << ins << " Such= " << t_find << std::endl;
@@ -281,5 +291,39 @@ void remove_a4(int m, int p, int part_size, orderedset& numbers, const std::vect
 
 
 
+void insert_a5(int m, int p, int part_size, sorderedset& numbers, const std::vector<int>& rand_ints) {
+	auto rand_it_begin = rand_ints.begin();
+	while (p-- > 0) {
+		Timer t_insert;
+		for (auto it = rand_it_begin; it != rand_it_begin + part_size; ++it) {
+			numbers.insert(*it);
+		}
+		std::string ins = t_insert.humanMeasure();
 
+		rand_it_begin += part_size;
+
+		Timer t_find;
+		int drin = search_a5(m, numbers, rand_ints);
+
+		out_ins(numbers.size(), drin, ins, t_find.humanMeasure());
+	}
+}
+
+void remove_a5(int m, int p, int part_size, sorderedset& numbers, const std::vector<int>& rand_ints) {
+	auto rand_it_begin = rand_ints.begin();
+	while (p-- > 0) {
+		Timer t_remove;
+		for (auto it = rand_it_begin; it != rand_it_begin + part_size; ++it) {
+			numbers.remove(*it);
+		}
+		std::string remv = t_remove.humanMeasure();
+
+		rand_it_begin += part_size;
+
+		Timer t_find;
+		int drin = search_a5(m, numbers, rand_ints);
+
+		out_rem(numbers.size(), drin, remv, t_find.humanMeasure());
+	}
+}
 

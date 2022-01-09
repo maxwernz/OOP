@@ -1,42 +1,24 @@
 #include "orderedset.h"
+#include "sorderedset.h"
 #include "ooptool.h"
 #include <algorithm>
 #include <list>
 
-template<typename Cont>
-int search_sorted(int m, Cont& numbers, const std::vector<int>& rand_ints) {
-	int drin=0;
-	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
-		auto it=numbers.begin();
-		while (*search_it > *it && it != numbers.end()) {
-			++it;
-		}
-		if (it != numbers.end() && *it == *search_it) {
-			drin+=1;
-		}
+void out(sorderedset& sp) {
+	for (int i : sp) {
+		std::cout << i << std::endl;
 	}
-	return drin;
-}
-
-
-
-void test(std::vector<int>& b) {
-
 }
 
 
 int main () {
-	std::vector<int> test = {2, 4, 6, 1, 8, 2, 0, 98 };
-	orderedset a;
-	for (int i : test) {
-		a.insert(i);
-	}
-	for (int i : a) {
-		std::cout << i << std::endl;
-	}
-	for (int i : test) {
-		a.remove(i);
-		std::cout << "y ";
-	}
-	std::cout << a.size() << std::endl;
+	sorderedset sp;
+	sp.insert(3);
+	sp.insert(7);
+	sp.insert(5);
+	out(sp);
+	sp.remove(5);
+	out(sp);
+	std::cout << sp.search_ele(9) << std::endl;
+
 }

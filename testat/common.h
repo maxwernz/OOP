@@ -21,6 +21,11 @@ void remove_a3(int m, int p, int part_size, std::list<int>& numbers, const std::
 void insert_a4(int m, int p, int part_size, orderedset& numbers, const std::vector<int>& rand_ints);
 void remove_a4(int m, int p, int part_size, orderedset& numbers, const std::vector<int>& rand_ints);
 
+void insert_a5(int m, int p, int part_size, sorderedset& numbers, const std::vector<int>& rand_ints);
+void remove_a5(int m, int p, int part_size, sorderedset& numbers, const std::vector<int>& rand_ints);
+
+int search_a5(int m, sorderedset& numbers, const std::vector<int>& rand_ints);
+
 void out_ins (size_t size, int drin, std::string ins, std::string t_find);
 void out_rem (size_t size, int drin, std::string remv, std::string t_find);
 

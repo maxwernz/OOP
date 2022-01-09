@@ -17,13 +17,8 @@ orderedset::~orderedset() {
 }
 
 bool orderedset::empty() const {
-	if (head->next == nullptr) {
-		return true;
-	}
-	return false;
+	return head->next == nullptr;
 }
-
-
 
 void orderedset::insert(const int ele) {
 	if (empty()) {
@@ -43,7 +38,7 @@ void orderedset::insert(const int ele) {
 	if (h->next == nullptr) {
 		_node* n = new _node;
 		n->val = ele;
-		n->next = h->next;
+		n->next = nullptr;
 		h->next = n;
 		return;
 	}
@@ -55,7 +50,6 @@ void orderedset::insert(const int ele) {
 	}
 
 }
-
 
 void orderedset::remove(const int ele) {
 	if (empty()) {
@@ -117,11 +111,6 @@ typename orderedset::Iter orderedset::begin() const {
 }
 
 typename orderedset::Iter orderedset::end() const {
-//	_node* temp = head->next;
-//	while (temp != nullptr) {
-//		temp = temp->next;
-//	}
-//	return Iter(temp);
 	return Iter(nullptr);
 }
 
