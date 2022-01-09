@@ -2,7 +2,6 @@
 #include "common.h"
 #include "ooptool.h"
 #include <iostream>
-#include <algorithm>
 
 
 using namespace std;

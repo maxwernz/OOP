@@ -1,11 +1,86 @@
-#include "orderedset.h"
-#include "sorderedset.h"
+#include <cstring>
 #include <string>
 #include <vector>
 #include <list>
 
 #ifndef COMMON_H_
 #define COMMON_H_
+
+class orderedset {
+	class Iter;
+public:
+	orderedset();
+	~orderedset();
+	bool empty() const;
+	void insert(const int ele);
+	void remove(const int ele);
+	size_t size() const;
+	Iter begin() const;
+	Iter end() const;
+private:
+	struct _node {
+		_node* next;
+		int val;
+	};
+
+	class Iter {
+		friend class orderedset;
+	public:
+		int operator* ();
+		Iter& operator++();
+		bool operator==(const Iter& other);
+		bool operator!=(const Iter& other);
+	private:
+		Iter(_node* cur) : _cur(cur) {}
+		_node* _cur;
+	};
+private:
+	_node* head;
+};
+
+
+
+class sorderedset {
+	class node;
+	class Iter;
+public:
+	sorderedset();
+	~sorderedset();
+	void insert(const int  ele);
+	void remove(const int ele);
+	size_t size() const;
+	bool search_ele(const int ele);
+	Iter begin() const;
+	Iter end() const;
+private:
+	class node {
+	public:
+		node(int height, int ele);
+		~node();
+		int val;
+		node** forw;
+	};
+	class Iter {
+			friend class sorderedset;
+		public:
+			int operator* ();
+			Iter& operator++();
+			bool operator==(const Iter& other);
+			bool operator!=(const Iter& other);
+		private:
+			Iter(node* cur) : _cur(cur) {}
+			node* _cur;
+		};
+private:
+	node* head;
+	int height;    //current max height except head
+	int MAXHEIGHT = 30;
+};
+
+
+int randomHeight();
+
+
 
 void insert_a1 (int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints);
 void remove_a1(int m, int p, int part_size, std::vector<int>& numbers, const std::vector<int>& rand_ints);

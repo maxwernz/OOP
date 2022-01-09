@@ -6,23 +6,17 @@
 CPP_SRCS += \
 ../common.cpp \
 ../mengen.cpp \
-../ooptool.cpp \
-../orderedset.cpp \
-../sorderedset.cpp 
+../ooptool.cpp 
 
 CPP_DEPS += \
 ./common.d \
 ./mengen.d \
-./ooptool.d \
-./orderedset.d \
-./sorderedset.d 
+./ooptool.d 
 
 OBJS += \
 ./common.o \
 ./mengen.o \
-./ooptool.o \
-./orderedset.o \
-./sorderedset.o 
+./ooptool.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -37,7 +31,7 @@ OBJS += \
 clean: clean--2e-
 
 clean--2e-:
-	-$(RM) ./common.d ./common.o ./mengen.d ./mengen.o ./ooptool.d ./ooptool.o ./orderedset.d ./orderedset.o ./sorderedset.d ./sorderedset.o
+	-$(RM) ./common.d ./common.o ./mengen.d ./mengen.o ./ooptool.d ./ooptool.o
 
 .PHONY: clean--2e-
 
