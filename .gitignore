@@ -1,4 +1,4 @@
 /.metadata/
 *.o
 .DS_Store
-*.tmp
+/testat
