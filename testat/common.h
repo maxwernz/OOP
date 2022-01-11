@@ -1,7 +1,10 @@
+#include "ooptool.h"
 #include <cstring>
 #include <string>
 #include <vector>
 #include <list>
+#include <algorithm>
+#include <iomanip>
 
 #ifndef COMMON_H_
 #define COMMON_H_

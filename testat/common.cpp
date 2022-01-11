@@ -1,10 +1,7 @@
 #include "common.h"
-#include "ooptool.h"
-#include <algorithm>
 
 
-#ifndef COMMON_CPP_
-#define COMMON_CPP_
+
 
 
 /** lower_bound
@@ -107,7 +104,7 @@ void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 	}
 }
 
-#endif
+
 
 
 //Suche fuer Augabe 1
@@ -136,14 +133,14 @@ int search_a5(int m, sorderedset& numbers, const std::vector<int>& rand_ints) {
 
 // Ausgabe fuer das Einfuegen
 void out_ins (size_t size, int drin, std::string ins, std::string t_find) {
-	std::cout << "anz=     " << size << " drin=        " << drin;
-	std::cout << "     Einf=" << ins << " Such= " << t_find << std::endl;
+	std::cout << "anz=" << std::setw(8) << size << " drin=" << std::setw(8) << drin;
+	std::cout << "   Einf= " << ins << " Such=" << t_find << std::endl;
 }
 
 //Ausgabe fuer das Entfernen
 void out_rem (size_t size, int drin, std::string remv, std::string t_find) {
-	std::cout << "anz=     " << size << " drin=        " << drin;
-	std::cout << "     Entf=" << remv << " Such= " << t_find << std::endl;
+	std::cout << "anz=" << std::setw(8) << size << " drin=" << std::setw(8) << drin;
+	std::cout << "   Entf= " << remv << " Such= " << t_find << std::endl;
 }
 
 

@@ -1,6 +1,5 @@
 //Maximilian Wernz 2112041
 #include "common.h"
-#include "ooptool.h"
 #include <iostream>
 
 
