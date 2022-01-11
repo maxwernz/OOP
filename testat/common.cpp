@@ -3,8 +3,15 @@
 #include <algorithm>
 
 
+#ifndef COMMON_CPP_
+#define COMMON_CPP_
+
+
+/** lower_bound
+ *  Bestimmt Iterator auf das erste Element was nicht kleiner ist (groesser oder gleich)
+ */
 template<typename Iter>
-Iter not_less_than(Iter start, Iter end, int val) { //my lower_bound
+Iter not_less_than(Iter start, Iter end, int val) {
 	Iter it;
 	auto count = std::distance(start, end);
 	auto step = count;
@@ -27,6 +34,7 @@ Iter not_less_than(Iter start, Iter end, int val) { //my lower_bound
 	return start;
 }
 
+//find Funktion
 template<typename Iter>
 Iter my_find(Iter first, Iter last, int val) {
 	for (; first != last; ++first) {
@@ -48,6 +56,9 @@ Iter binary_find(Iter begin, Iter end, int val) {
 
 
 
+/** Sucht in sortierter Datenstruktur mit Abbruch
+ * 	Aufgabe 2-4
+ */
 template<typename Cont>
 int search_sorted(int m, Cont& numbers, const std::vector<int>& rand_ints) {
  	int drin=0;
@@ -65,6 +76,9 @@ int search_sorted(int m, Cont& numbers, const std::vector<int>& rand_ints) {
 	return drin;
 }
 
+/** Fuegt sortiert in Datenstruktur ein
+ * 	Aufgabe 2-4
+ */
 template<typename Cont,typename Iter>
 void insert_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 	for(auto rand_it=rand_it_begin; rand_it != rand_it_begin + part_size; ++rand_it) {
@@ -80,6 +94,9 @@ void insert_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 	}
 }
 
+/** Loescht in sortierter Struktur, Element wird gesucht -> geloescht
+ * 	Aufgabe 2-4
+ */
 template<typename Cont, typename Iter>
 void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 	for (auto rand_it=rand_it_begin; rand_it != rand_it_begin+part_size; ++rand_it) {
@@ -90,8 +107,10 @@ void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers) {
 	}
 }
 
+#endif
 
 
+//Suche fuer Augabe 1
 int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_ints) {
 	int drin=0;
 	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
@@ -102,6 +121,7 @@ int search_a1(int m, std::vector<int>& numbers, const std::vector<int>& rand_int
 	return drin;
 }
 
+//Suche Aufgabe 5 mit search Funktion aus sorderedset
 int search_a5(int m, sorderedset& numbers, const std::vector<int>& rand_ints) {
 	int drin=0;
 	for (auto search_it=rand_ints.begin()+m; search_it != rand_ints.end(); ++search_it) {
@@ -114,11 +134,13 @@ int search_a5(int m, sorderedset& numbers, const std::vector<int>& rand_ints) {
 
 
 
+// Ausgabe fuer das Einfuegen
 void out_ins (size_t size, int drin, std::string ins, std::string t_find) {
 	std::cout << "anz=     " << size << " drin=        " << drin;
 	std::cout << "     Einf=" << ins << " Such= " << t_find << std::endl;
 }
 
+//Ausgabe fuer das Entfernen
 void out_rem (size_t size, int drin, std::string remv, std::string t_find) {
 	std::cout << "anz=     " << size << " drin=        " << drin;
 	std::cout << "     Entf=" << remv << " Such= " << t_find << std::endl;
@@ -594,3 +616,4 @@ typename sorderedset::Iter sorderedset::begin() const {
 typename sorderedset::Iter sorderedset::end() const {
 	return Iter(nullptr);
 }
+

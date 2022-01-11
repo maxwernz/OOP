@@ -124,10 +124,4 @@ template<typename Cont, typename Iter>
 void remove_sorted (Iter rand_it_begin, int part_size, Cont& numbers);
 
 
-
-
-
-
-
-
 #endif /* COMMON_H_ */
