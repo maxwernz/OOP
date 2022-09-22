@@ -5,7 +5,7 @@
 //  Created by Maximilian Wernz on 20.09.22.
 //
 
-#include "GraphicObjects.h"
+#include "GraphicObject.h"
 
 bool Square::is_in(int x, int y) const {
     return ((y > m_y) && (y < m_y + m_width) && (x > m_x) && (x < m_x + m_width));

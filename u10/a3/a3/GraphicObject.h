@@ -5,8 +5,8 @@
 //  Created by Maximilian Wernz on 20.09.22.
 //
 
-#ifndef GraphicObjects_h
-#define GraphicObjects_h
+#ifndef GraphicObject_h
+#define GraphicObject_h
 
 #include <cmath>
 
