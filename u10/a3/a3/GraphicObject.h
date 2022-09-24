@@ -36,7 +36,7 @@ public:
 class Rectangle : public GraphicObject {
     int m_x, m_y, m_width, m_height;
 public:
-    Rectangle(int x, int y, int m_width, int height) : m_x(x), m_y(y), m_width(width), m_height(height) {}
+    Rectangle(int x, int y, int width, int height) : m_x(x), m_y(y), m_width(width), m_height(height) {}
     void paint() override {};
     bool is_in(int x, int y) const override;
 };

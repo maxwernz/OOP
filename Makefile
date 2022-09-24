@@ -3,7 +3,7 @@ BUILD_DIR = $(SRC_DIR)
 CC = g++
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 TEST_FILES = $(wildcard $(SRC_DIR)/Test/*.cpp)
-SFML_FILES = $(wildcard $(SRC_DIR)/SFML/*.cpp)
+SFML_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_NAME = run
 INCLUDE = -I include
 LIB = -L lib
@@ -19,4 +19,4 @@ gtest:
 	$(CC) $(COMPILER_FLAGS) $(GTEST) $(LINKER) $(INCLUDE) $(LIB) $(TEST_FILES) -o $(BUILD_DIR)/Test/gtest
 
 sfml:
-	$(CC) $(COMPILER_FLAGS) $(LINKER) $(INCLUDE) $(LIB) $(SFML_FILES) -o $(BUILD_DIR)/SFML/show $(SFML)
+	$(CC) $(COMPILER_FLAGS) $(LINKER) $(INCLUDE) $(LIB) $(SFML_FILES) -o $(BUILD_DIR)/run $(SFML)
